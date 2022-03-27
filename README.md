@@ -5,19 +5,19 @@ Simplest Youtube downloader you will find. I made this CLI so I would not have t
 ## 💿 Installation
 
 ```shell
-npm i -g yt-dl
+npm i -g ez-yt-dl
 ```
 
 ## ⚡️ Usage
 
 ```shell
-yt-dl <url> [filepath]
+ez-yt-dl <url> [filepath]
 ```
 
 ## 😎 Without installation
 
 ```shell
-npx yt-dl <url> [filepath]
+npx ez-yt-dl <url> [filepath]
 ```
 
 If no filepath is supplied it will be saved in the current working directory.
