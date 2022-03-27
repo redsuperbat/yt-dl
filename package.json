@@ -1,0 +1,22 @@
+{
+  "name": "yt-dl",
+  "version": "1.0.0",
+  "description": "Simplest CLI you will find for downloading youtube videos. It downloads the video url you supply, nothing more nothing less...",
+  "bin": {
+    "yt-dl": "yt-dl"
+  },
+  "keywords": [
+    "CLI",
+    "cli",
+    "youtube",
+    "video",
+    "downloader"
+  ],
+  "author": "Max Netterberg",
+  "license": "MIT",
+  "dependencies": {
+    "cli-progress": "^3.10.0",
+    "prompts": "^2.4.2",
+    "ytdl-core": "^4.11.0"
+  }
+}

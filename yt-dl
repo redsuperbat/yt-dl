@@ -1,0 +1,91 @@
+#!/usr/bin/env node
+const fs = require("fs");
+const ytdl = require("ytdl-core");
+const cliProgress = require("cli-progress");
+const prompts = require("prompts");
+const path = require("path");
+
+const url = process.argv[2];
+const customSavePath = process.argv[3];
+if (!url) {
+  const errorMsg = `Invalid Input
+Please provide a url to a youtube video
+  eg:
+  yt-dl https://www.youtube.com/watch?v=mJyFIZ70KAo
+  `;
+  console.log(errorMsg);
+  process.exit(1);
+}
+
+const videoID = url.split("v=")[1];
+if (!videoID) {
+  const errorMsg = `Invalid Input
+Please provide a valid youtube url. Did you forget the video id?`;
+  console.log(errorMsg);
+  process.exit(1);
+}
+
+const bar = new cliProgress.SingleBar(
+  {
+    formatValue: (value, _, type) => {
+      switch (type) {
+        case "total":
+        case "value":
+          return bytesToSize(value);
+        case "eta":
+          return "🤷‍♂️";
+        case "duration":
+          return "";
+        default:
+          return value;
+      }
+    },
+  },
+  cliProgress.Presets.shades_classic
+);
+
+function bytesToSize(bytes) {
+  const sizes = ["Bytes", "KB", "MB", "GB", "TB"];
+  if (bytes == 0) return "0 Byte";
+  const i = parseInt(Math.floor(Math.log(bytes) / Math.log(1024)));
+  return Math.round(bytes / Math.pow(1024, i), 2) + " " + sizes[i];
+}
+
+async function main() {
+  const info = await ytdl.getInfo(videoID);
+  console.log("Downloading", info.videoDetails.title, "...");
+  const response = await prompts({
+    type: "select",
+    name: "value",
+    message: "Pick a quality",
+    choices: info.formats
+      .filter((format) => format.container === "mp4")
+      .filter((format) => format.hasAudio)
+      .map((format) => ({
+        title: format.qualityLabel,
+        value: format.itag,
+      })),
+    initial: 1,
+  });
+
+  const readable = ytdl(url, {
+    quality: response.value,
+  });
+
+  const videoFilePath = path.join(
+    process.cwd(),
+    info.videoDetails.title + ".mp4"
+  );
+  readable.pipe(fs.createWriteStream(customSavePath || videoFilePath));
+  readable.once("progress", (_, __, total) => {
+    bar.start(total, 0);
+  });
+  readable.on("progress", (_, totalDownloaded) => {
+    bar.update(totalDownloaded);
+  });
+  readable.on("end", () => {
+    bar.stop();
+  });
+}
+
+main();
