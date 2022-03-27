@@ -1,6 +1,6 @@
 # Youtube Downloader
 
-Simplest youtube downloader you will find. I made so I did not have to use the 🔥GOD🔥 forsaken websites to download YT videos for watching offline.
+Simplest youtube downloader you will find. I this CLI so I would not have to use the ad-littered, 💀forsaken💀, unwieldy websites to download YT videos for watching offline.
 
 ## 💿 Installation
 
@@ -12,6 +12,12 @@ npm i -g yt-dl
 
 ```shell
 yt-dl <url> [filepath]
+```
+
+## 😎 Without installation
+
+```shell
+npx yt-dl <url> [filepath]
 ```
 
 If no filepath is supplied it will be saved in the current working directory.

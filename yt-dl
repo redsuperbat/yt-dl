@@ -6,7 +6,7 @@ const prompts = require("prompts");
 const path = require("path");
 
 const url = process.argv[2];
-const customSavePath = process.argv[3];
+let customSavePath = process.argv[3];
 if (!url) {
   const errorMsg = `Invalid Input
 Please provide a url to a youtube video
@@ -35,7 +35,7 @@ const bar = new cliProgress.SingleBar(
         case "eta":
           return "🤷‍♂️";
         case "duration":
-          return "";
+          return "🤷‍♀️";
         default:
           return value;
       }
@@ -53,7 +53,10 @@ function bytesToSize(bytes) {
 
 async function main() {
   const info = await ytdl.getInfo(videoID);
-  console.log("Downloading", info.videoDetails.title, "...");
+  const videoTitle = info.videoDetails.title;
+  customSavePath =
+    customSavePath && path.join(customSavePath, videoTitle + ".mp4");
+  console.log("Downloading", videoTitle, "...");
   const response = await prompts({
     type: "select",
     name: "value",
@@ -72,10 +75,7 @@ async function main() {
     quality: response.value,
   });
 
-  const videoFilePath = path.join(
-    process.cwd(),
-    info.videoDetails.title + ".mp4"
-  );
+  const videoFilePath = path.join(process.cwd(), videoTitle + ".mp4");
   readable.pipe(fs.createWriteStream(customSavePath || videoFilePath));
   readable.once("progress", (_, __, total) => {
     bar.start(total, 0);
