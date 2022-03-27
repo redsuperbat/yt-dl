@@ -12,6 +12,13 @@
     "video",
     "downloader"
   ],
+  "repository": {
+    "type": "git"
+  },
+  "contributors": [
+    "Max Netterberg"
+  ],
+  "bugs": {},
   "author": "Max Netterberg",
   "license": "MIT",
   "dependencies": {
