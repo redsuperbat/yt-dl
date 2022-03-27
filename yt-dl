@@ -32,10 +32,6 @@ const bar = new cliProgress.SingleBar(
         case "total":
         case "value":
           return bytesToSize(value);
-        case "eta":
-          return "🤷‍♂️";
-        case "duration":
-          return "🤷‍♀️";
         default:
           return value;
       }
