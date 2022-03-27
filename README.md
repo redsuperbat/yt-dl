@@ -1,6 +1,6 @@
 # Youtube Downloader
 
-Simplest youtube downloader you will find. I this CLI so I would not have to use the ad-littered, 💀forsaken💀, unwieldy websites to download YT videos for watching offline.
+Simplest Youtube downloader you will find. I made this CLI so I would not have to use the ad-littered, 💀forsaken💀, unwieldy websites to download YT videos for watching offline.
 
 ## 💿 Installation
 
