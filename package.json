@@ -1,6 +1,6 @@
 {
   "name": "yt-dl",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "Simplest CLI you will find for downloading youtube videos. It downloads the video url you supply, nothing more nothing less...",
   "bin": {
     "yt-dl": "yt-dl"
